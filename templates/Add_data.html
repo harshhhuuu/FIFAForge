@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Data</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+</head>
+<body>
+    <nav>
+      <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/eda">Exploratory Data Analysis</a></li>
+            <li><a href="/train-model">Train Model</a></li>
+            <li><a href="/predict">Predict Overall</a></li>
+            <li><a href="/k-means">Clustering</a></li>
+            <li><a href="/add-data">Add Data</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      
+      <form method="Post" action="/add-data">
+        {% for name, dtype in columns %}
+        <div>
+            <label for="{{ name }}">{{ name.replace('_', ' ').title() }}:</label>
+            {% if 'int' in dtype|string %}
+            <input type="number" id="{{ name }}" name="{{ name }}" min="0" step="1" required>
+            {% elif 'float' in dtype|string %}
+            <input type="number" id="{{ name }}" name="{{ name }}" min="0" step="0.01" required>
+            {% else %}
+            <input type="text" id="{{ name }}" name="{{ name }}" required>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
+      </form>
+      {% if message %}
+        <div id="message">
+          <label>{{message}}</label>
+        </div>
+      {% endif %}
+    </div>
+</body>
+</html>

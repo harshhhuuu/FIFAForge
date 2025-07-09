@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Overall Prediction</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+            <li><a href="/eda">Exploratory Data Analysis</a></li>
+            <li><a href="/predict">Predict Overall</a></li>
+            <li><a href="/train-model">Train Model </a></li>
+             <li><a href="/k-means">Clustering</a></lili>
+                <li><a href="/add-data">Add Data</a></li>
+             
+    </ul>
+  </nav>
+
+  <h1>Model Training</h1>
+
+  <form action="/train-model" method="post">
+    <button type="submit">Train</button>
+    <div id="result">
+      <label>Model Score:</label>
+      <span id="score">{{score}}</span>
+    </div>
+  </form>
+</body>
+</html>
+     

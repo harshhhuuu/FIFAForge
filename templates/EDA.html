@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exploratory Data Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/eda">Exploratory Data Analysis</a></li>
+            <li><a href="/predict">Predict Overall</a></li>
+            <li><a href="/train-model">Train Model </a></li>
+          <li><a href="/k-means">Clustering</a></li>
+         <li><a href="/add-data">Add Data</a></li>
+            
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Exploratory Data Analysis</h1>
+        <form id="edaForm" action="/eda" method="post">
+            <label for="xColumn">X-Axis Column</label>
+            <select id="xColumn" name="xColumn" required>
+                <option value="" disabled selected> Select X Column</option>
+                {% for col in columns %}
+                <option value="{{col}}">{{col}}</option>
+                {% endfor %}
+            </select>
+            <label for="yColumn">Y-Axis Column</label>
+            <select id="yColumn" name="yColumn" required>
+                <option value="" disabled selected> Select Y Column</option>
+                {% for col in columns %}
+                <option value="{{col}}">{{col}}</option>
+                {% endfor %}
+            </select>
+            <label for="plotType">Plot Type</label>
+            <select id="plotType" name="plotType" required>
+                <option value="" disabled selected>Select Plot Type</option>
+                <option value="scatter">Scatter</option>
+                <option value="line">Line</option>
+                <option value="bar">Bar</option>
+                <option value="pie">Pie</option>
+            </select>
+            <button type="submit">Generate Plot</button>
+        </form>
+        {% if image_file %}
+            <h2>Chart:</h2>
+            <img src="{{ url_for('static',filename=image_file) }}" alt="Chart not found">
+        {% endif %}
+    </div>
+</body>
+</html>  

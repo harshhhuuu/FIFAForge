@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIFA Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+
+</head>
+<body>
+
+    <header>
+        <h1>SkillBoard: FIFA Dashboard</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/eda">Exploratory Data Analysis</a></li>
+            <li><a href="/train-model">Train Model</a></li>
+            <li><a href="/predict">Predict Overall</a></li>
+            <li><a href="/k-means">Clustering</a></li>
+             <li><a href="/add-data">Add Data</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <img src="{{ url_for('static', filename='fifa.png') }}" alt="FIFA Dashboard Visualizations">
+    </main>
+
+</body>
+</html>

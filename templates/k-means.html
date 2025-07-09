@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clustering Data</title>
+         <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    </head>
+    <body>
+        <nav>
+            
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/eda">Exploratory Data Analysis</a></li>
+                <li><a href="/train-model">Train Model</a></li>
+                <li><a href="/predict">Predict Overall</a></li>
+                <li><a href="/k-means">Clustering</a></li>
+                   <li><a href="/add-data">Add Data</a></li>
+            </ul>
+        </nav>
+        <h1> Clustering Of Data</h1>
+        <form id="clusterform" action="/k-means" method="post">
+            <div>
+                <label for="column1">COLUMN 1</label>
+                <select id="column1", name="column1" required>
+                    <option value="" disabled selected> SELECT COLUMN 1</option>
+                    {% for col in columns %}
+                    <option value="{{col}}">{{ col }}</option>
+                    {% endfor %}
+                </select>
+                <label for="column2">COLUMN 2</label>
+                <select id="column2", name="column2" required>
+                    <option value="" disabled selected> SELECT COLUMN 2</option>
+                    {% for col in columns %}
+                    <option value="{{col}}">{{ col }}</option>
+                    {% endfor %}
+                </select> 
+            <br>
+            <button type="submit">GENERATE</button>
+        </form>
+
+        {% if image_file %}
+            <h2> GENERATED CLUSTER:</h2>
+            <img src="{{ url_for('static',filename=image_file)}}" alt="selected plotted cluster is not available">
+        {% endif %}
+    </body>
+</html>
