@@ -12,6 +12,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from database import Database as D
 from k_means import Clustering as C
+from pca import PCAModel
 
 model = joblib.load('linear_regression_model.pkl')  # Load the trained model
 # Save with protocol=4 for compatibility with Python 3.4+
@@ -185,6 +186,31 @@ def cluster():
         plt.close()
         image_file = 'images/cluster.png'
     return render_template('k-means.html',columns=columns, image_file=image_file)
+
+@app.route('/pca', methods=['GET', 'POST'])
+def pca_analysis():
+    model = PCAModel('fifa_players.csv')
+    max_components = model.load_and_prepare_data()  # get max number of PCA components
+
+  
+    pca_result = None
+    image_file = None
+    r2_score_val = None
+
+    if request.method == 'POST':
+        try:
+            n_components = int(request.form['n_components'])
+            model.train_model(n_components=n_components)
+            model.get_variance_plot()  # saves image
+            pca_df = model.get_variance_plot() 
+            r2 = model.evaluate_model()
+            r2_score_val = f"{r2 * 100:.2f}" # returns dataframe
+            pca_result = pca_df.to_string(index=False)
+            image_file = 'images/pca_variance.png'
+        except Exception as e:
+            pca_result = f"Error: {str(e)}"
+
+    return render_template('pca.html', max_components=max_components, pca_result=pca_result, r2_score=r2_score_val,image_file=image_file)
 
 if __name__ == '__main__':
     app.run(debug=True)
